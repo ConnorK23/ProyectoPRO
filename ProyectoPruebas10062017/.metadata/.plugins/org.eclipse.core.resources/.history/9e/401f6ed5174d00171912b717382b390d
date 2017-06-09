@@ -1,0 +1,149 @@
+package controller;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import dao.PrestamosDAO;
+import model.Prestamos;
+import view.VistaPrestamos;
+
+public class ControladorPrestamos implements ActionListener {
+	private static VistaPrestamos vistaPrestamos;
+	private static PrestamosDAO prestamosDAO;
+	
+	
+	public ControladorPrestamos(VistaPrestamos vistaPrestamos, PrestamosDAO PrestamosDAO) {
+		this.vistaPrestamos = vistaPrestamos;
+		this.prestamosDAO = prestamosDAO;
+		actionListener(this);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Limpiar")){
+			limpiarCampos();
+		}
+		
+		if (e.getActionCommand().equals("Realizar Prestamo")){
+			if(validar()==true){
+			vistaPrestamos.getjTable1().setModel(vistaPrestamos.getModelo());
+			Peliculas peliculas = recogerPelicula();
+			prestamosDAO.nuevo(peliculas);
+			vistaPrestamos.getModelo().addRow(prestamosDAO.getClientes());
+			}
+		}
+		
+		if (e.getActionCommand().equals("Borrar Prestamo")){
+			int fila = vistaPrestamos.getjTable1().getSelectedRow();
+			vistaPrestamos.getjTable1().setModel(vistaPrestamos.getModelo());
+			Peliculas peliculas = eliminarPeliculas();
+			prestamosDAO.eliminar(peliculas);
+			JOptionPane.showMessageDialog(null, "Datos ELIMINADOS");
+			vistaPrestamos.getModelo().removeRow(fila);
+		}
+		
+		if (e.getActionCommand().equals("Actualizar Prestamo")){
+			int row = vistaPrestamos.getjTable1().getSelectedRow();
+			vistaPrestamos.getjTable1().setModel(vistaPrestamos.getModelo());
+			Peliculas peliculas = actualizarPelicula();
+			prestamosDAO.actualizar(peliculas);
+			JOptionPane.showMessageDialog(null, "Datos ACTUALIZADOS");
+			vistaPrestamos.getModelo().addRow(prestamosDAO.getPrestamos());
+			vistaPrestamos.getModelo().removeRow(row);
+		}
+		
+		if (e.getActionCommand().equals("Fecha")){
+			String campo = vistaPrestamos.getCampo().getSelectedItem().toString();
+			String np = vistaPrestamos.getjTextField4().getText();
+			String[] datos = prestamosDAO.filtrar(campo, np);
+			vistaPrestamos.getjTextField1().setText(datos[0]);
+			vistaPrestamos.getjTextField2().setText(datos[1]);
+			vistaPrestamos.getjTextField3().setText(datos[2]);
+		}
+		
+		
+	}
+	
+	public void actionListener(ActionListener escuchador){
+		vistaPrestamos.getBtnLimpiar().addActionListener(escuchador);
+		vistaPrestamos.getjButton1().addActionListener(escuchador);
+		vistaPrestamos.getjButton2().addActionListener(escuchador);
+		vistaPrestamos.getjButton3().addActionListener(escuchador);
+		vistaPrestamos.getBtnFecha().addActionListener(escuchador);
+	}
+	
+	private void limpiarCampos(){
+		vistaPrestamos.getjTextField1().setText("");
+		vistaPrestamos.getjTextField2().setText("");
+		vistaPrestamos.getjTextField3().setText("");
+	}
+	
+	public void seleccionarCampo(){
+		int fila = vistaPrestamos.getjTable1().getSelectedRow();
+		if(fila>=0){
+			vistaPrestamos.getjTextField1().setText(vistaPrestamos.getjTable1().getValueAt(fila, 0).toString());
+			vistaPrestamos.getjTextField2().setText(vistaPrestamos.getjTable1().getValueAt(fila, 1).toString());
+			vistaPrestamos.getjTextField3().setText(vistaPrestamos.getjTable1().getValueAt(fila, 2).toString());
+		}
+	}
+	
+	private Prestamos recogerPelicula(){
+		String DNI = vistaPrestamos.getjTextField1().getText();
+		String Nombre = vistaPrestamos.getjTextField2().getText();
+		String Telefono = vistaPrestamos.getjTextField3().getText();
+		String Pelicula = vistaPrestamos.getjTextField4().getText();
+		String Fecha_Prestamo = vistaPrestamos.getjTextField5().getText();
+		String Fecha_Devolucion = vistaPrestamos.getTextField().getText();
+		Prestamos prestamos = new Prestamos(DNI, Nombre, Telefono, Pelicula, Fecha_Prestamo, Fecha_Devolucion);
+		return prestamos;
+	}
+	
+	private Prestamos eliminarPeliculas(){
+		int fila = vistaPrestamos.getjTable1().getSelectedRow();
+		String codigo_Peliculas = (String) vistaPrestamos.getjTable1().getValueAt(fila, 0);
+		Prestamos prestamos = new Prestamos(dNI, nombre, telefono, pelicula, fecha_Prestamo, fecha_Devolucion);
+		//Peliculas peliculas = new Peliculas(codigo_Peliculas, null, null);
+		return prestamos;
+	}
+	
+	private Prestamos actualizarPelicula(){
+		String DNI = vistaPrestamos.getjTextField1().getText();
+		String Nombre = vistaPrestamos.getjTextField2().getText();
+		String Telefono = vistaPrestamos.getjTextField3().getText();
+		String Pelicula = vistaPrestamos.getjTextField4().getText();
+		String Fecha_Prestamo = vistaPrestamos.getjTextField5().getText();
+		String Fecha_Devolucion = vistaPrestamos.getTextField().getText();
+		Prestamos prestamos = new Prestamos(DNI, Nombre, Telefono, Pelicula, Fecha_Prestamo, Fecha_Devolucion);
+		return prestamos;
+	}
+	
+	public boolean validar() {
+		if(vistaPrestamos.getjTextField1().getText().equals("") 
+				|| vistaPrestamos.getjTextField2().getText().equals("") 
+				|| vistaPrestamos.getjTextField3().getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
+            return false;
+        } else {
+            return true;
+        }
+	}
+	
+	/* public static DefaultTableModel modelo(){
+		DefaultTableModel modelo;
+		modelo = new DefaultTableModel();
+    	modelo.addColumn("Codigo Peliculas");
+    	modelo.addColumn("Titulo");
+    	modelo.addColumn("Autor");
+    	return modelo;
+	}*/
+	
+	/* public void llenarTabla(){
+		
+		vistaPrestamos.getModelo().addRow(prestamosDAO.getClientes());
+		vistaPrestamos.getjTable1().setModel(vistaPrestamos.getModelo());
+	} */
+}

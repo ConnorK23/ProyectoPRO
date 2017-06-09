@@ -1,0 +1,41 @@
+package dao;
+
+public class PrestamosDAO implements IPrestamosDAO {
+
+	@Override
+	public String Fecha() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void dniPredictivo(String texto) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean nuevo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean validar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void llenarTabla() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void eliminar() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

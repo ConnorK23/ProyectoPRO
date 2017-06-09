@@ -1,0 +1,19 @@
+package controller;
+
+import java.util.List;
+
+import model.Clientes;
+
+public class ModeloTabla {
+	private static String[] columnNames = { "DNI",
+			"Nombre",
+			"Apellidos",
+			"Direccion",
+			"Telefono"
+	};
+	
+	private static List<Clientes> data = clientesDAO.getClientes();
+	public ModeloTabla(){
+		addTableModelListener(this);
+	}
+}

@@ -1,0 +1,43 @@
+package dao;
+
+import model.Peliculas;
+
+public class PeliculasDAO implements IPeliculasDAO {
+
+	@Override
+	public void filtrarTabla(String campo, String texto) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean actualizar(Peliculas peliculas) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String[] filtrar(String np) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getClientes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean nuevo(Peliculas peliculas) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean eliminar(Peliculas peliculas) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

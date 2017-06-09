@@ -1,0 +1,10 @@
+package model;
+
+public class Prestamos {
+	private String DNI;
+	private String Nombre;
+	private String Telefono;
+	private String Pelicula;
+	private String Fecha_prestamo;
+	private String Fecha_devolucion;
+}

@@ -1,0 +1,105 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+
+import model.ConnectionBD;
+import model.Peliculas;
+import model.Prestamos;
+
+public class PrestamosDAO implements IPrestamosDAO {
+	String bd="clientes";
+    String us ="root";
+    String pass="";
+    ResultSet rs;
+    Statement st;
+    Connection con = ConnectionBD.getConnectionBD();
+    
+	@Override
+	public boolean actualizar(Prestamos prestamos) {
+			boolean success = false;
+	    	String sql = "UPDATE prestamos SET DNI= ?, Nombre= ?, Telefono= ?, Pelicula= ?, Fecha_prestamo= ?, Fecha_devolucion= ?  WHERE Codigo_Peliculas= ?";
+	    	try {
+				PreparedStatement pr = con.prepareStatement(sql);
+				pr.setString(1, prestamos.getDNI());
+				pr.setString(2, prestamos.getNombre());
+				pr.setString(3, prestamos.getTelefono());
+				pr.setString(4, prestamos.getPelicula());
+				pr.setString(5, prestamos.getFecha_Prestamo());
+				pr.setString(6, prestamos.getFecha_Devolucion());
+				int rows = pr.executeUpdate();
+				if(rows != 0)
+					success = true;
+			} catch (SQLException e) {
+				System.out.println("Error en Actualizar");
+			}
+	    	return success;
+		}
+
+	@Override
+	public String[] getPrestamos() {
+		String sql = "SELECT * FROM prestamos";
+        String[] datos = new String[6];
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                datos[4]=rs.getString(5);
+                datos[5]=rs.getString(6);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR1");
+        }
+        return datos;
+	}
+
+	@Override
+	public boolean nuevo(Prestamos prestamos) {
+		boolean success = false;
+    	String sql = "INSERT INTO peliculas VALUES (?, ?, ?, ?, ?, ?)";
+    	try {
+			PreparedStatement pr = con.prepareStatement(sql);
+			pr.setString(1, prestamos.getDNI());
+			pr.setString(2, prestamos.getNombre());
+			pr.setString(3, prestamos.getTelefono());
+			pr.setString(4, prestamos.getPelicula());
+			pr.setString(5, prestamos.getFecha_Prestamo());
+			pr.setString(6, prestamos.getFecha_Devolucion());
+			int rows = pr.executeUpdate();
+			if(rows != 0)
+				success = true;
+		} catch (SQLException e) {
+        	JOptionPane.showMessageDialog(null, "Has introducido un codigo igual. Intentalo de nuevo modificando el codigo");
+		}
+    	return success;
+	}
+
+	@Override
+	public boolean eliminar(Prestamos prestamos) {
+		boolean success = false;
+		try {
+			int fila = jTable1.getSelectedRow();
+			String sql = "DELETE FROM prestamos WHERE DNI = '" + jTable1.getValueAt(fila, 0)+"' AND Pelicula= '"+ jTable1.getValueAt(fila, 3) +"'";
+			st = con.createStatement();
+			int n = st.executeUpdate(sql);
+			if(n>0){
+				llenarTabla();
+			JOptionPane.showMessageDialog(null, "Datos ELIMINADOS");
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return success;	
+	}
+
+}

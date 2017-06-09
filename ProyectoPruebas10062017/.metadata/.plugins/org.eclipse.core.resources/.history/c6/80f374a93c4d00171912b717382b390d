@@ -1,0 +1,21 @@
+package defecto;
+
+import java.awt.EventQueue;
+
+import view.VistaClientes;
+
+public class App {
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				try{
+				VistaClientes frame = new VistaClientes();
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+}

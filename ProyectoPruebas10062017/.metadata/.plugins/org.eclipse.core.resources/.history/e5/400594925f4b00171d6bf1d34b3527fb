@@ -1,0 +1,9 @@
+package model;
+
+public class Clientes {
+	private String DNI;
+	private String Nombre;
+	private String Apellidos;
+	private String Direccion;
+	private String Telefono;
+}

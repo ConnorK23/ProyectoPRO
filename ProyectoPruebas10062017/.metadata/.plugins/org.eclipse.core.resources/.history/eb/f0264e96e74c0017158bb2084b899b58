@@ -1,0 +1,157 @@
+package controller;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import dao.ClientesDAO;
+import model.Clientes;
+import view.VistaClientes;
+
+public class ControladorClientes implements ActionListener {
+	private static VistaClientes vistaClientes;
+	private static ClientesDAO clientesDAO;
+	
+	
+	public ControladorClientes(VistaClientes vistaClientes, ClientesDAO clientesDAO) {
+		this.vistaClientes = vistaClientes;
+		this.clientesDAO = clientesDAO;
+		actionListener(this);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Limpiar")){
+			limpiarCampos();
+		}
+		
+		if (e.getActionCommand().equals("Nuevo")){
+			if(validar()==true){
+			vistaClientes.getjTable1().setModel(vistaClientes.getModelo());
+			Clientes cliente = recogerClientes();
+			clientesDAO.nuevo(cliente);
+			vistaClientes.getModelo().addRow(clientesDAO.getClientes());
+			}
+		}
+		
+		if (e.getActionCommand().equals("Eliminar")){
+			int fila = vistaClientes.getjTable1().getSelectedRow();
+			vistaClientes.getjTable1().setModel(vistaClientes.getModelo());
+			Clientes cliente = eliminarCliente();
+			clientesDAO.eliminar(cliente);
+			JOptionPane.showMessageDialog(null, "Datos ELIMINADOS");
+			vistaClientes.getModelo().removeRow(fila);
+		}
+		
+		if (e.getActionCommand().equals("Actualizar")){
+			int row = vistaClientes.getjTable1().getSelectedRow();
+			vistaClientes.getjTable1().setModel(vistaClientes.getModelo());
+			Clientes cliente = actualizarCliente();
+			clientesDAO.actualizar(cliente);
+			JOptionPane.showMessageDialog(null, "Datos ACTUALIZADOS");
+			vistaClientes.getModelo().addRow(clientesDAO.getClientes());
+			vistaClientes.getModelo().removeRow(row);
+		}
+		
+		if (e.getActionCommand().equals("Busqueda por Codigo")){
+			String campo = vistaClientes.getCampo().getSelectedItem().toString();
+			String np = vistaClientes.getjTextField4().getText();
+			String[] datos = clientesDAO.filtrar(campo, np);
+			vistaClientes.getjTextField1().setText(datos[0]);
+			vistaClientes.getjTextField2().setText(datos[1]);
+			vistaClientes.getjTextField3().setText(datos[2]);
+			vistaClientes.getjTextField5().setText(datos[3]);
+			vistaClientes.getjTextField6().setText(datos[4]);
+		}
+		
+		
+	}
+	
+	public void actionListener(ActionListener escuchador){
+		vistaClientes.getBtnLimpiar().addActionListener(escuchador);
+		vistaClientes.getjButton1().addActionListener(escuchador);
+		vistaClientes.getjButton2().addActionListener(escuchador);
+		vistaClientes.getjButton3().addActionListener(escuchador);
+		vistaClientes.getBtnBusquedaAvanzada().addActionListener(escuchador);
+		vistaClientes.getjTextField4().addActionListener(escuchador);
+	}
+	
+	private void limpiarCampos(){
+		vistaClientes.getjTextField1().setText("");
+		vistaClientes.getjTextField2().setText("");
+		vistaClientes.getjTextField3().setText("");
+		vistaClientes.getjTextField5().setText("");
+		vistaClientes.getjTextField6().setText("");
+	}
+	
+	public void seleccionarCampo(){
+		int fila = vistaClientes.getjTable1().getSelectedRow();
+		if(fila>=0){
+			vistaClientes.getjTextField1().setText(vistaClientes.getjTable1().getValueAt(fila, 0).toString());
+			vistaClientes.getjTextField2().setText(vistaClientes.getjTable1().getValueAt(fila, 1).toString());
+			vistaClientes.getjTextField3().setText(vistaClientes.getjTable1().getValueAt(fila, 2).toString());
+			vistaClientes.getjTextField5().setText(vistaClientes.getjTable1().getValueAt(fila, 3).toString());
+			vistaClientes.getjTextField6().setText(vistaClientes.getjTable1().getValueAt(fila, 4).toString());
+		}
+	}
+	
+	private Clientes recogerClientes(){
+		String DNI = vistaClientes.getjTextField1().getText();
+		String Nombre = vistaClientes.getjTextField2().getText();
+		String Apellidos = vistaClientes.getjTextField3().getText();
+		String Direccion = vistaClientes.getjTextField5().getText();
+		String Telefono = vistaClientes.getjTextField6().getText();
+		Clientes cliente = new Clientes(DNI, Nombre, Apellidos, Direccion, Telefono);
+		return cliente;
+	}
+	
+	private Clientes eliminarCliente(){
+		int fila = vistaClientes.getjTable1().getSelectedRow();
+		String DNI = (String) vistaClientes.getjTable1().getValueAt(fila, 0);
+		Clientes cliente = new Clientes(DNI, null,null,null,null);
+		return cliente;
+	}
+	
+	private Clientes actualizarCliente(){
+		String DNI = vistaClientes.getjTextField1().getText();
+		String Nombre = vistaClientes.getjTextField2().getText();
+		String Apellidos = vistaClientes.getjTextField3().getText();
+		String Direccion = vistaClientes.getjTextField5().getText();
+		String Telefono = vistaClientes.getjTextField6().getText();
+		Clientes cliente = new Clientes(DNI, Nombre, Apellidos, Direccion, Telefono);
+		return cliente;
+	}
+	
+	public boolean validar() {
+		if(vistaClientes.getjTextField1().getText().equals("") 
+				|| vistaClientes.getjTextField2().getText().equals("") 
+				|| vistaClientes.getjTextField3().getText().equals("") 
+				|| vistaClientes.getjTextField5().getText().equals("") 
+				|| vistaClientes.getjTextField6().getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
+            return false;
+        } else {
+            return true;
+        }
+	}
+	
+	public static DefaultTableModel modelo(){
+		DefaultTableModel modelo;
+		modelo = new DefaultTableModel();
+    	modelo.addColumn("DNI");
+    	modelo.addColumn("Nombre");
+    	modelo.addColumn("Apellidos");
+    	modelo.addColumn("Direccion");
+    	modelo.addColumn("Telefono");
+    	return modelo;
+	}
+	
+	public void llenarTabla(){
+		
+		vistaClientes.getModelo().addRow(clientesDAO.getClientes());
+		vistaClientes.getjTable1().setModel(vistaClientes.getModelo());
+	}
+}

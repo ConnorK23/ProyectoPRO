@@ -1,0 +1,26 @@
+package defecto;
+
+import java.awt.EventQueue;
+
+import controller.ControladorClientes;
+import dao.ClientesDAO;
+import view.VistaClientes;
+
+public class App {
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				try{
+					VistaClientes frame = new VistaClientes();
+        			ClientesDAO clientesDAO = new ClientesDAO();
+        			new ControladorClientes(frame, clientesDAO);
+					frame.setVisible(true);
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+}

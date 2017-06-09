@@ -1,0 +1,90 @@
+package model;
+
+public class Prestamos {
+    private String DNI;
+    private String Nombre;
+    private String Telefono;
+    private String Titulo;
+    private String Fecha_Prestamo;
+    private String Fecha_Devolucion;
+	public Prestamos(String dNI, String nombre, String telefono, String titulo, String fecha_Prestamo,
+			String fecha_Devolucion) {
+		super();
+		DNI = dNI;
+		Nombre = nombre;
+		Telefono = telefono;
+		Titulo = titulo;
+		Fecha_Prestamo = fecha_Prestamo;
+		Fecha_Devolucion = fecha_Devolucion;
+	}
+	public String getDNI() {
+		return DNI;
+	}
+	public void setDNI(String dNI) {
+		DNI = dNI;
+	}
+	public String getNombre() {
+		return Nombre;
+	}
+	public void setNombre(String nombre) {
+		Nombre = nombre;
+	}
+	public String getTelefono() {
+		return Telefono;
+	}
+	public void setTelefono(String Telefono) {
+		Telefono = telefono;
+	}
+	public String getTitulo() {
+		return Titulo;
+	}
+	public void setTitulo(String titulo) {
+		Titulo = titulo;
+	}
+	public String getFecha_Prestamo() {
+		return Fecha_Prestamo;
+	}
+	public void setFecha_Prestamo(String fecha_Prestamo) {
+		Fecha_Prestamo = fecha_Prestamo;
+	}
+	public String getFecha_Devolucion() {
+		return Fecha_Devolucion;
+	}
+	public void setFecha_Devolucion(String fecha_Devolucion) {
+		Fecha_Devolucion = fecha_Devolucion;
+	}
+	@Override
+	public String toString() {
+		return "Prestamos [DNI=" + DNI + ", Nombre=" + Nombre + ", Telefono=" + Telefono + ", Titulo=" + Titulo
+				+ ", Fecha_Prestamo=" + Fecha_Prestamo + ", Fecha_Devolucion=" + Fecha_Devolucion + "]";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((DNI == null) ? 0 : DNI.hashCode());
+		result = prime * result + ((Titulo == null) ? 0 : Titulo.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Prestamos other = (Prestamos) obj;
+		if (DNI == null) {
+			if (other.DNI != null)
+				return false;
+		} else if (!DNI.equals(other.DNI))
+			return false;
+		if (Titulo == null) {
+			if (other.Titulo != null)
+				return false;
+		} else if (!Titulo.equals(other.Titulo))
+			return false;
+		return true;
+	}
+}

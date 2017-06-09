@@ -1,0 +1,13 @@
+package dao;
+
+import model.Clientes;
+
+public interface IClientesDAO {
+	void filtrarTabla(String campo, String texto);
+	boolean actualizar(String np);
+	void eliminar(String np);
+	void filtrar(String np);
+	void llenarTabla();
+	boolean validar();
+	boolean nuevo(Clientes clientes);
+}

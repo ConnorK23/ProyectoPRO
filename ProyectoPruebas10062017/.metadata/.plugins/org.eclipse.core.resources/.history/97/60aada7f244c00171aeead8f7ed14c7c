@@ -1,0 +1,16 @@
+package dao;
+
+import java.util.List;
+
+import model.Clientes;
+
+public interface IClientesDAO {
+	void filtrarTabla(String campo, String texto);
+	void eliminar(String np);
+	void filtrar(String np);
+	void llenarTabla();
+	boolean validar();
+	boolean nuevo(Clientes clientes);
+	String[] getClientes();
+	boolean actualizar(Clientes clientes, String np);
+}

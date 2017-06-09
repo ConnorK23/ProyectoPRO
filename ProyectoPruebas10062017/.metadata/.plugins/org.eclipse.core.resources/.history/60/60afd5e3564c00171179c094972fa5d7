@@ -1,0 +1,47 @@
+package dao;
+
+public class PeliculasDAO implements IPeliculasDAO {
+
+	@Override
+	public void filtrarTabla(String campo, String texto) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean actualizar(String np) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void eliminar(String np) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void filtrar(String np) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void llenarTabla() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean validar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean nuevo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

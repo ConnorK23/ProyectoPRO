@@ -1,0 +1,8 @@
+package controller;
+
+import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
+
+public class ModeloTablaClientes extends AbstractTableModel implements TableModelListener {
+
+}

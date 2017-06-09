@@ -1,0 +1,143 @@
+package controller;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import dao.ClientesDAO;
+import model.Clientes;
+import model.Peliculas;
+import view.VistaPeliculas;
+
+public class ControladorPeliculas implements ActionListener {
+	private static VistaPeliculas vistaPeliculas;
+	private static ClientesDAO clientesDAO;
+	
+	
+	public ControladorPeliculas(VistaPeliculas vistaPeliculas, ClientesDAO clientesDAO) {
+		this.vistaPeliculas = vistaPeliculas;
+		this.clientesDAO = clientesDAO;
+		actionListener(this);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Limpiar")){
+			limpiarCampos();
+		}
+		
+		if (e.getActionCommand().equals("Nuevo")){
+			if(validar()==true){
+			vistaPeliculas.getjTable1().setModel(vistaPeliculas.getModelo());
+			Peliculas pelicula = recogerClientes();
+			clientesDAO.nuevo(pelicula);
+			vistaPeliculas.getModelo().addRow(clientesDAO.getClientes());
+			}
+		}
+		
+		if (e.getActionCommand().equals("Eliminar")){
+			int fila = vistaPeliculas.getjTable1().getSelectedRow();
+			vistaPeliculas.getjTable1().setModel(vistaPeliculas.getModelo());
+			Peliculas pelicula = eliminarPelicula();
+			clientesDAO.eliminar(cliente);
+			JOptionPane.showMessageDialog(null, "Datos ELIMINADOS");
+			vistaPeliculas.getModelo().removeRow(fila);
+		}
+		
+		if (e.getActionCommand().equals("Actualizar")){
+			int row = vistaPeliculas.getjTable1().getSelectedRow();
+			vistaPeliculas.getjTable1().setModel(vistaPeliculas.getModelo());
+			Peliculas pelicula = actualizarCliente();
+			clientesDAO.actualizar(pelicula);
+			JOptionPane.showMessageDialog(null, "Datos ACTUALIZADOS");
+			vistaPeliculas.getModelo().addRow(clientesDAO.getClientes());
+			vistaPeliculas.getModelo().removeRow(row);
+		}
+		
+		if (e.getActionCommand().equals("Busqueda por Codigo")){
+			String np = JOptionPane.showInputDialog(null, "Introduce el DNI");
+			String[] datos = clientesDAO.filtrar(np);
+			vistaPeliculas.getjTextField1().setText(datos[0]);
+			vistaPeliculas.getjTextField2().setText(datos[1]);
+			vistaPeliculas.getjTextField3().setText(datos[2]);
+		}
+		
+		
+	}
+	
+	public void actionListener(ActionListener escuchador){
+		vistaPeliculas.getBtnLimpiar().addActionListener(escuchador);
+		vistaPeliculas.getjButton1().addActionListener(escuchador);
+		vistaPeliculas.getjButton2().addActionListener(escuchador);
+		vistaPeliculas.getjButton3().addActionListener(escuchador);
+		vistaPeliculas.getBtnBusquedaAvanzada().addActionListener(escuchador);
+		vistaPeliculas.getjTextField4().addActionListener(escuchador);
+	}
+	
+	private void limpiarCampos(){
+		vistaPeliculas.getjTextField1().setText("");
+		vistaPeliculas.getjTextField2().setText("");
+		vistaPeliculas.getjTextField3().setText("");
+	}
+	
+	public void seleccionarCampo(){
+		int fila = vistaPeliculas.getjTable1().getSelectedRow();
+		if(fila>=0){
+			vistaPeliculas.getjTextField1().setText(vistaPeliculas.getjTable1().getValueAt(fila, 0).toString());
+			vistaPeliculas.getjTextField2().setText(vistaPeliculas.getjTable1().getValueAt(fila, 1).toString());
+			vistaPeliculas.getjTextField3().setText(vistaPeliculas.getjTable1().getValueAt(fila, 2).toString());
+		}
+	}
+	
+	private Peliculas recogerPelicula(){
+		String codigo_Peliculas = vistaPeliculas.getjTextField1().getText();
+		String titulo = vistaPeliculas.getjTextField2().getText();
+		String autor = vistaPeliculas.getjTextField3().getText();
+		Peliculas pelicula = new Peliculas(codigo_Peliculas, titulo, autor);
+		return pelicula;
+	}
+	
+	private Peliculas eliminarPeliculas(){
+		int fila = vistaPeliculas.getjTable1().getSelectedRow();
+		String codigo_Peliculas = (String) vistaPeliculas.getjTable1().getValueAt(fila, 0);
+		Peliculas pelicula = new Peliculas(codigo_Peliculas, null, null);
+		return pelicula;
+	}
+	
+	private Peliculas actualizarPelicula(){
+		String codigo_Peliculas = vistaPeliculas.getjTextField1().getText();
+		String titulo = vistaPeliculas.getjTextField2().getText();
+		String autor = vistaPeliculas.getjTextField3().getText();
+		Peliculas pelicula = new Peliculas(codigo_Peliculas, titulo, autor);
+		return pelicula;
+	}
+	
+	public boolean validar() {
+		if(vistaPeliculas.getjTextField1().getText().equals("") 
+				|| vistaPeliculas.getjTextField2().getText().equals("") 
+				|| vistaPeliculas.getjTextField3().getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
+            return false;
+        } else {
+            return true;
+        }
+	}
+	
+	public static DefaultTableModel modelo(){
+		DefaultTableModel modelo;
+		modelo = new DefaultTableModel();
+    	modelo.addColumn("Codigo Peliculas");
+    	modelo.addColumn("Titulo");
+    	modelo.addColumn("Autor");
+    	return modelo;
+	}
+	
+	public void llenarTabla(){
+		
+		vistaPeliculas.getModelo().addRow(clientesDAO.getClientes());
+		vistaPeliculas.getjTable1().setModel(vistaPeliculas.getModelo());
+	}
+}

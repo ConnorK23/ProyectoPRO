@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+public class Peliculas {
+	private String Codigo_Pelicula;
+    private String Titulo;
+    private String Autor;
+	public Clientes(String codigo_Pelicula, String titulo, String autor) {
+		super();
+		Codigo_Pelicula = codigo_Pelicula;
+		Titulo = titulo;
+		Autor = autor;
+	}
+	public String getCodigo_Pelicula() {
+		return Codigo_Pelicula;
+	}
+	public void setCodigo_Pelicula(String codigo_Pelicula) {
+		Codigo_Pelicula = codigo_Pelicula;
+	}
+	public String getTitulo() {
+		return Titulo;
+	}
+	public void setTitulo(String titulo) {
+		Titulo = titulo;
+	}
+	public String getAutor() {
+		return Autor;
+	}
+	public void setAutor(String autor) {
+		Autor = autor;
+	}
+	@Override
+	public String toString() {
+		return "Clientes [Codigo_Pelicula=" + Codigo_Pelicula + ", Titulo=" + Titulo + ", Autor=" + Autor + "\n";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Codigo_Pelicula == null) ? 0 : Codigo_Pelicula.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Clientes other = (Clientes) obj;
+		if (Codigo_Pelicula == null) {
+			if (other.Codigo_Pelicula != null)
+				return false;
+		} else if (!Codigo_Pelicula.equals(other.Codigo_Pelicula))
+			return false;
+		return true;
+	}
+}

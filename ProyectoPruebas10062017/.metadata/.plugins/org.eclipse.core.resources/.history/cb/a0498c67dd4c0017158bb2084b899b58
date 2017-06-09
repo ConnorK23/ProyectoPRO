@@ -1,0 +1,12 @@
+package dao;
+
+import model.Peliculas;
+
+public interface IPeliculasDAO {
+	void filtrarTabla(String campo, String texto);
+	boolean actualizar(Peliculas peliculas);
+	String[] filtrar(String np);
+	String[] getClientes();
+	boolean nuevo(Peliculas peliculas);
+	boolean eliminar(Peliculas peliculas);
+}

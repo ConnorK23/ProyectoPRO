@@ -1,0 +1,10 @@
+package dao;
+
+public interface IPrestamosDAO {
+	String Fecha();
+	void dniPredictivo(String texto);
+	boolean nuevo();
+	boolean validar();
+	void llenarTabla();
+	void eliminar();
+}

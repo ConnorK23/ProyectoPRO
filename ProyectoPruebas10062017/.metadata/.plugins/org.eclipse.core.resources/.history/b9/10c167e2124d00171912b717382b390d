@@ -1,0 +1,31 @@
+package dao;
+
+import model.Prestamos;
+
+public class PrestamosDAO implements IPrestamosDAO {
+
+	@Override
+	public boolean actualizar(Prestamos prestamos) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String[] getPrestamos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean nuevo(Prestamos prestamos) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean eliminar(Prestamos prestamos) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

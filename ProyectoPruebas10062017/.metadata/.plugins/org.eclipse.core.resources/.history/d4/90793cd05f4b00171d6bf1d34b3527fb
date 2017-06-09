@@ -1,0 +1,7 @@
+package model;
+
+public class Peliculas {
+	private String Codigo_Peliculas;
+	private String Titulo;
+	private String Autor;
+}

@@ -1,0 +1,8 @@
+package view;
+
+public class Pruebas {
+	public static void main(String[] args) {
+		VistaPrestamos vista = new VistaPrestamos();
+		System.out.println(vista.llenar_combo());
+	}
+}

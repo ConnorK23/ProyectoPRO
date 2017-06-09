@@ -1,0 +1,11 @@
+package dao;
+
+import model.Prestamos;
+
+public interface IPrestamosDAO {
+	boolean actualizar(Prestamos clientes);
+	String[] filtrar(String campo, String np);
+	String[] getClientes();
+	boolean nuevo(Prestamos prestamos);
+	boolean eliminar(Clientes clientes);
+}

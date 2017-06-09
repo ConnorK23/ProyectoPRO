@@ -1,0 +1,11 @@
+package dao;
+
+public interface IPeliculasDAO {
+	void filtrarTabla(String campo, String texto);
+	boolean Actualizar(String np);
+	void Eliminar(String np);
+	void filtrar(String np);
+	void llenarTabla();
+	boolean validar();
+	boolean Nuevo();
+}

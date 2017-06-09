@@ -1,0 +1,56 @@
+package controller;
+
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+
+import dao.ClientesDAO;
+
+public class ModeloTablaClientes extends AbstractTableModel implements TableModelListener {
+	private ClientesDAO clientesDAO;
+	private static String[] columnNames = {"DNI",
+			"Nombre",
+			"Apellidos",
+			"Direccion",
+			"Telefono"};
+	
+	DefaultTableModel modelo = new DefaultTableModel();
+    modelo.addColumn("DNI");
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Apellidos");
+    modelo.addColumn("Direccion");
+    modelo.addColumn("Telefono");
+	
+	private static String[][] data =
+	
+	
+	public ModeloTablaClientes(){
+		addTableModelListener(this);
+	}
+	
+	@Override
+	public int getColumnCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getRowCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

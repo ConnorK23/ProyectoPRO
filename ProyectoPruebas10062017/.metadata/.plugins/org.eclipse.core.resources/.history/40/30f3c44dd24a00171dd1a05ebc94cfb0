@@ -1,0 +1,7 @@
+package dao;
+
+public interface IClientesDAO {
+	void filtrarTabla(String campo, String texto);
+	boolean Actualizar(String np)
+	
+}

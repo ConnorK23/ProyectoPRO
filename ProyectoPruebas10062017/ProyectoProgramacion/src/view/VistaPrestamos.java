@@ -76,7 +76,7 @@ public class VistaPrestamos extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-    	this.setLocationRelativeTo(null);
+    	//this.setLocationRelativeTo(null);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -334,6 +334,7 @@ public class VistaPrestamos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
 
         pack();
+        this.setLocationRelativeTo(null);
     }// </editor-fold>                        
 	public ResultSet getRs() {
 		return rs;

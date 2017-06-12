@@ -65,7 +65,7 @@ public class VistaPeliculas extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-    	this.setLocationRelativeTo(null);
+    	//this.setLocationRelativeTo(null);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTable1.addMouseListener(new MouseAdapter() {
@@ -308,6 +308,7 @@ public class VistaPeliculas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
 
         pack();
+        this.setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void llenarTabla(){

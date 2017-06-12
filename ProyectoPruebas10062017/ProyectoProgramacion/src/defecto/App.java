@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import controller.ControladorClientes;
 import dao.ClientesDAO;
+import view.Principal;
 import view.VistaClientes;
 import view.VistaPeliculas;
 
@@ -30,10 +31,8 @@ public class App {
 	        /* Create and display the form */
 	        java.awt.EventQueue.invokeLater(new Runnable() {
 	            public void run() {
-	            	 try {
-	            		VistaClientes frame = new VistaClientes();
-	        			ClientesDAO clientesDAO = new ClientesDAO();
-	        			new ControladorClientes(frame, clientesDAO);
+	            	try {
+						Principal frame = new Principal();
 						frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
